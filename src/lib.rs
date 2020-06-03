@@ -89,73 +89,73 @@ macro_rules! CHECK_PARAM_INDEX {
 
 pub fn PG_GETARG_DATUM(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<Datum> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value)
 }
 
 pub fn PG_GETARG_ISIZE(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<isize> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as isize)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as isize)
 }
 
 pub fn PG_GETARG_USIZE(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<usize> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as usize)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as usize)
 }
 
 pub fn PG_GETARG_I8(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<i8> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as i8)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as i8)
 }
 
 pub fn PG_GETARG_I16(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<i16> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as i16)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as i16)
 }
 
 pub fn PG_GETARG_I32(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<i32> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as i32)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as i32)
 }
 
 pub fn PG_GETARG_I64(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<i64> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as i64)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as i64)
 }
 
 pub fn PG_GETARG_U8(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<u8> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as u8)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as u8)
 }
 
 pub fn PG_GETARG_U16(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<u16> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as u16)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as u16)
 }
 
 pub fn PG_GETARG_U32(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<u32> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as u32)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as u32)
 }
 
 pub fn PG_GETARG_U64(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<u64> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let val = unsafe { (&*fcinfo).arg[n] };
-    Ok(val as u64)
+    let val = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n] };
+    Ok(val.value as u64)
 }
 
 pub fn PG_GETARG_STRING(fcinfo: FunctionCallInfo, n: usize) -> PgxrResult<String> {
     CHECK_PARAM_INDEX!(fcinfo, n);
-    let c = unsafe { (&*fcinfo).arg[n] as *mut c_char };
+    let c = unsafe { (&*fcinfo).args.as_slice((&*fcinfo).nargs as usize)[n].value as *mut c_char };
     let s = unsafe { CStr::from_ptr(c).to_string_lossy().into_owned() };
     Ok(s)
 }
